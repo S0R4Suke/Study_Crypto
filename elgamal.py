@@ -48,9 +48,9 @@ print('pk:', pk) # 公開鍵
 print('sk:', sk) # 秘密鍵
 print()
 
-m1 = 3 # 一つ目の平文
+m1 = 2 # 一つ目の平文
 c1 = elgamal_encrypt(m1, pk)
-m2 = 7 # 二つ目の平文
+m2 = 4 # 二つ目の平文
 c2 = elgamal_encrypt(m2, pk)
 print('m1:', m1)
 print('m2:', m2)
