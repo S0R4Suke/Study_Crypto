@@ -48,9 +48,9 @@ print('pk:', pk) # 公開鍵
 print('sk:', sk) # 秘密鍵
 print()
 
-m1 = 2 # 一つ目の平文
+m1 = 11 # 一つ目の平文
 c1 = elgamal_encrypt(m1, pk)
-m2 = 4 # 二つ目の平文
+m2 = 12 # 二つ目の平文
 c2 = elgamal_encrypt(m2, pk)
 print('m1:', m1)
 print('m2:', m2)
@@ -58,8 +58,10 @@ print('c1:', c1)
 print('c2:', c2)
 
 # 平文1*平文2
-c = [ (a * b) % p for a, b in zip(c1, c2) ]
+c = [ (a * b) for a, b in zip(c1, c2) ]
 print('c1*c2:', tuple(c))
 
+# 復号
 d = elgamal_decrypt(c, pk, sk)
+# 乗算の結果
 print('d:', d)
