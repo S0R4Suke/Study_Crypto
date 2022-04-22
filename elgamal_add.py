@@ -1,4 +1,4 @@
-#修正Elgamal暗号
+# 修正Elgamal暗号
 from Crypto.Util import number
 
 # 鍵生成アルゴリズム
@@ -19,7 +19,7 @@ def elgamal_gen_key(bits):
             continue
         break
     # 秘密値x
-    x = number.getRandomRange(2, p-1)
+    x = number.getRandomRange(0, p-2)
     # 公開値y
     y = pow(g, x, p)
     return (p, g, y), x
@@ -28,7 +28,7 @@ def elgamal_gen_key(bits):
 def elgamal_encrypt(m, pk):
     p, g, y = pk
     assert(0 <= m < p)
-    r = number.getRandomRange(2, p-1)
+    r = number.getRandomRange(0, p-2)
     c1 = pow(g, r, p)
     c2 = (pow(g, m, p) * pow(y, r, p)) % p
     return (c1, c2)
@@ -40,18 +40,24 @@ def elgamal_decrypt(c, pk, sk):
     r = (c2 * pow(c1, p - 1 - sk, p)) % p
     return baby_step_giant_step(g, r, p)
 
+#以下elgamal暗号と異なる部分
+
 # Baby-step Giant-step法
 # X^K ≡ Y (mod M) となるような K を求める
 def baby_step_giant_step(X, Y, M):
-    D = {1: 0} # {g^i: i}
-    m = int(M**0.5) + 1
+    print('XYZ:',X,Y,M)
 
+    D = {1: 0} # {g^i: i}
+    m = int(M**0.5) + 1 # m = ⌈√M⌉ 
+    print('m:',m)
     # Baby-step
+    # m = ⌈√M⌉  とし、 x^0,x^1...x^(m-1)を求めるステップ 
     Z = 1
     for i in range(m):
         Z = (Z * X) % M
         D[Z] = i+1
     if Y in D:
+        print('D[Y]:',D[Y])
         return D[Y]
 
     # Giant-step
