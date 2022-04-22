@@ -1,5 +1,4 @@
 # ElGamal暗号
-# pip install pycryptodome
 from Crypto.Util import number
 
 # 鍵生成アルゴリズム
