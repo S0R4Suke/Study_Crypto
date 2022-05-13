@@ -27,7 +27,7 @@ def elgamal_gen_key(bits):
 # 暗号化アルゴリズム
 def elgamal_encrypt(m, pk):
     p, g, y = pk # 3つの公開鍵?をp,g,yとして格納
-    assert(0 <= m < p) # 平文が0≦m<pを満たしていることをテスト
+    assert(0 < m < p) # 平文が0≦m<pを満たしていることをテスト
     r = number.getRandomRange(0, p-2) # 0≦r≦p-2となる整数rをランダムに選ぶ
     c1 = pow(g, r, p)           # c_1 = g^r mod p
     c2 = (m * pow(y, r, p)) % p # c_2 = m * y^r % p,平文mをy^rと掛け合わせ、平文をマスクする

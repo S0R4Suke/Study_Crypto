@@ -61,6 +61,7 @@ def baby_step_giant_step(X, Y, M):
         return D[Y]
 
     # Giant-step
+    # R = X^-m　を計算し、a=0からY×R^a≡X^b(modM)となる0 ≦ b ≦ m-1が見つかるまで計算するステップ
     R = pow(Z, M-2, M) # R = X^{-m}
     for i in range(1, m+1):
         Y = (Y * R) % M
