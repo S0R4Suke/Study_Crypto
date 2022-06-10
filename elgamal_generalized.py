@@ -21,10 +21,9 @@ count = len(prime)
 print('素数の数: ', count)
 print(prime[0:5], "-----", prime[-6:-1])
 
+# 鍵生成アルゴリズム
 
-# GenGアルゴリズム
-# p = 2q + 1
-
+# phase1:GenGアルゴリズム
 p_flag = False
 while p_flag == False:
     q_candidate_index = random.randint(int(count/2), count-1) # 素数の数/2 から 素数の数-1まで
@@ -55,37 +54,53 @@ for i in range(q): # 0 から qまで
 
 print('g_cyclic_group order: ', len(g_cyclic_group))
 
+# gが循環群かどうかを確認している？
 for i in range(1, 10):
     if alpha**i % p in g_cyclic_group: 
         print(alpha, '^', i, ' is in g_cyclic_group') # alpha ^ iがg_cyclic_groupにあるかを確認する
     else:
         print(alpha, '^', i, ' is NOT in g_cyclic_group')
 
-x = random.randint(1, q-1)
-print('private key: x = ', x)
 
+# phase2:0 ≦ x ≦ 1〜q-1 となる整数xをランダムに取得
+x = random.randint(0, q-1)
+
+print('private key: x = ', x) # 秘密鍵
+
+# phase3:y = g ^ x
 y = alpha ** x % p
 print('y = ', y)
 
+# 平文を生成(平文はGの元)
 m_index = random.randint(1, q-1)
 m = g_cyclic_group[m_index]
 print('message m = ', m)
 
-r = random.randint(2, q-1)
+# 暗号化アルゴリズム
+r = random.randint(0, q-1)
 print('r = ', r)
 
+# c1 = g ^ r
 c1 = alpha**r % p
+
+# c2 = m * y ^ r
 c2 = m * (y**r) % p
+
+# 暗号文を出力
 print('encrypted (c1 and c2): ', c1, c2)
 
+# 復号アルゴリズム
 inverse_c1 = 0
 inverse_c1_flag = False
 
 for i in range(0, q):
+    # 1 == c1 * g^i
     if c1 * (alpha **i) % p == 1:
+        # c1 ^ -1 = g^i
         inverse_c1 = alpha **i %p
         print('inverse_c1 = ', inverse_c1)
         inverse_c1_flag = True 
+
 if inverse_c1_flag == False:
     print('could not find inverse_c1')
 
