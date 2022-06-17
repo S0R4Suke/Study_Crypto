@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "vector": "cpp",
+        "cstddef": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "limits": "cpp",
+        "memory": "cpp",
+        "mutex": "cpp",
+        "thread": "cpp"
+    }
+}
