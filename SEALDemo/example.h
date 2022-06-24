@@ -6,6 +6,7 @@
 
 //MS SEAL
 #include "seal/seal.h"
+
 //基本
 #include <iostream>
 #include <algorithm>
